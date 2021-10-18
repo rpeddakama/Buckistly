@@ -10,14 +10,15 @@ class BucketlistItemForm extends StatefulWidget {
 }
 
 class _BucketlistItemFormState extends State<BucketlistItemForm> {
-  final formController = TextEditingController(),
+  final fromController = TextEditingController(),
       toController = TextEditingController(),
       priceController = TextEditingController();
 
   createListItem() {
     print("created yo");
-    // LocalData.read();
-    print(formController.text);
+    print(fromController.text);
+    print(toController.text);
+    print(priceController.text);
   }
 
   @override
@@ -30,14 +31,47 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
       ),
       body: Column(
         children: <Widget>[
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Title(
+          //       color: Colors.black,
+          //       child: Text(
+          //         "SOME TITLE",
+          //         style: TextStyle(fontSize: 20),
+          //       )),
+          // ),
           ListTile(
               leading: Icon(Icons.arrow_upward_rounded),
               title: TypeAheadField<String>(
+                debounceDuration: Duration(milliseconds: 500),
                 textFieldConfiguration: TextFieldConfiguration(
+                    controller: fromController,
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search),
                         border: OutlineInputBorder(),
-                        hintText: 'Search Location')),
+                        hintText: 'From Location')),
+                suggestionsCallback: (pattern) async {
+                  return await LocalData.read(pattern);
+                },
+                itemBuilder: (context, String suggestion) {
+                  return ListTile(
+                    title: Text(suggestion),
+                  );
+                },
+                onSuggestionSelected: (String suggestion) {
+                  fromController.text = suggestion;
+                },
+              )),
+          ListTile(
+              leading: Icon(Icons.arrow_downward_rounded),
+              title: TypeAheadField<String>(
+                debounceDuration: Duration(milliseconds: 500),
+                textFieldConfiguration: TextFieldConfiguration(
+                    controller: toController,
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        border: OutlineInputBorder(),
+                        hintText: 'To Location')),
                 suggestionsCallback: (pattern) async {
                   return await LocalData.read(pattern);
                 },
@@ -49,27 +83,12 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
                 onSuggestionSelected: (String suggestion) {
                   toController.text = suggestion;
                 },
-              )
-              // TextField(
-              //   controller: formController,
-              //   decoration: InputDecoration(
-              //     hintText: "From",
-              //   ),
-              // ),
-              ),
-          ListTile(
-            leading: Icon(Icons.arrow_downward_rounded),
-            title: TextField(
-              controller: toController,
-              decoration: InputDecoration(
-                hintText: "To",
-              ),
-            ),
-          ),
+              )),
           ListTile(
             leading: Icon(Icons.monetization_on),
             title: TextField(
               controller: priceController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: "Ideal Price",
               ),
