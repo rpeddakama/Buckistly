@@ -1,3 +1,4 @@
+import 'package:bucketlist/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/screens/LoginSignup/login.dart';
 import 'package:bucketlist/screens/home_screen.dart';

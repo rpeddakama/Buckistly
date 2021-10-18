@@ -12,6 +12,17 @@ class AuthService {
   //   return DataBase().getUserInfo(auth.currentUser.uid);
   // }
 
+  static Future<String> onStartUp() async {
+    String ret = "error";
+    try {
+      User user = auth.currentUser;
+      ret = "success";
+    } catch (e) {
+      print(e);
+    }
+    return ret;
+  }
+
   static Future signIn(String email, String password) async {
     try {
       UserCredential res = await auth.signInWithEmailAndPassword(

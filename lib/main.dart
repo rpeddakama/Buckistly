@@ -1,3 +1,4 @@
+import 'package:bucketlist/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/screens/LoginSignup/login.dart';
@@ -9,8 +10,21 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool loggedIn = false;
+
+  @override
+  void initState() {
+    super.initState();
+    AuthService.onStartUp().then(
+        (value) => value == "success" ? loggedIn = true : loggedIn = false);
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Bucket List App',
@@ -20,7 +34,7 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFFD8ECF1),
         scaffoldBackgroundColor: Color(0xFFF3F5F7),
       ),
-      home: Login(),
+      home: loggedIn ? Root() : Login(),
     );
   }
 }
