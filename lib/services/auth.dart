@@ -8,9 +8,9 @@ class AuthService {
   static UserData curUser = new UserData();
   static FirebaseAuth auth = FirebaseAuth.instance;
 
-  // static Future<UserData> getCurrentUser() async {
-  //   return DataBase().getUserInfo(auth.currentUser.uid);
-  // }
+  static Future<UserData> getCurrentUser() async {
+    return DataBase().getUserInfo(auth.currentUser.uid);
+  }
 
   static Future<String> onStartUp() async {
     String ret = "error";
@@ -28,7 +28,7 @@ class AuthService {
       UserCredential res = await auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      // curUser = await DataBase().getUserInfo(res.user.uid);
+      curUser = await DataBase().getUserInfo(res.user.uid);
       return true;
     } catch (e) {
       print(e);
@@ -41,10 +41,12 @@ class AuthService {
     try {
       UserCredential res = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      // _user.name = name;
-      // _user.email = res.user.email;
-      // _user.uid = res.user.uid;
-      // DataBase().createUser(_user);
+
+      _user.name = name;
+      _user.email = res.user.email;
+      _user.uid = res.user.uid;
+      DataBase().createUser(_user);
+
       return true;
     } catch (e) {
       print(e);

@@ -9,7 +9,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  Widget bucketlistCard(BuildContext context) {
+  Widget bucketlistCard() {
     return Card(
         child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -78,7 +78,7 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(
-                children: [bucketlistCard(context), bucketlistCard(context)],
+                children: [bucketlistCard(), bucketlistCard()],
               ),
             ),
             SizedBox(height: 20.0),

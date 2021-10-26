@@ -1,4 +1,7 @@
 import 'package:bucketlist/constants/localData.dart';
+import 'package:bucketlist/models/user.dart';
+import 'package:bucketlist/services/auth.dart';
+import 'package:bucketlist/services/databse.dart';
 import 'package:bucketlist/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/constants/colors.dart' as ColorConstants;
@@ -14,7 +17,16 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
       toController = TextEditingController(),
       priceController = TextEditingController();
 
-  createListItem() {
+  getListItems() async {
+    UserData user = await AuthService.getCurrentUser();
+    List<dynamic> ret = await DataBase().getListItems(user.uid);
+    print("YUH" + ret[0]["to"]);
+  }
+
+  createListItem() async {
+    UserData user = await AuthService.getCurrentUser();
+    // await DataBase().createListItem(user.uid);
+    getListItems();
     print("created yo");
     print(fromController.text);
     print(toController.text);
