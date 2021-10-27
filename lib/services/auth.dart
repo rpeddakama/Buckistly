@@ -7,15 +7,21 @@ import 'package:bucketlist/services/databse.dart';
 class AuthService {
   static UserData curUser = new UserData();
   static FirebaseAuth auth = FirebaseAuth.instance;
+  User bob;
 
-  static Future<UserData> getCurrentUser() async {
-    return DataBase().getUserInfo(auth.currentUser.uid);
+  UserData userFromFirebaseUser(User user) {
+    return user != null ? UserData(uid: user.uid) : null;
+  }
+
+  Stream<UserData> get user {
+    return auth
+        .authStateChanges()
+        .map((User user) => userFromFirebaseUser(user));
   }
 
   static Future<String> onStartUp() async {
     String ret = "error";
     try {
-      User user = auth.currentUser;
       ret = "success";
     } catch (e) {
       print(e);

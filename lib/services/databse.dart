@@ -35,14 +35,15 @@ class DataBase {
     }
   }
 
-  Future<String> createListItem(String uid) async {
-    UserData res = new UserData();
+  Future<String> createListItem(
+      String uid, String from, String to, String price) async {
     try {
       await firestore
           .collection("users")
           .doc(uid)
           .collection("flights")
-          .add({'from': 'LAX', 'to': 'JFK', 'price': 2000});
+          .add({'from': from, 'to': to, 'price': int.parse(price)});
+      print("AM HERE");
       return "success";
     } catch (e) {
       print(e);

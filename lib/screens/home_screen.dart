@@ -1,6 +1,9 @@
 import 'package:bucketlist/CreateBucketlistForm/form.dart';
+import 'package:bucketlist/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/constants/colors.dart' as ColorConstants;
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,7 +12,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  Widget bucketlistCard() {
+  Widget bucketlistCard(String from, String to, int price, String id) {
+    UserData curUser = Provider.of(context);
     return Card(
         child: Column(
       mainAxisSize: MainAxisSize.min,
@@ -17,11 +21,11 @@ class _HomeState extends State<Home> {
         ListTile(
             leading: Icon(Icons.flight),
             title: Text(
-              "from here to there",
+              'From ${from} to ${to}',
               style: TextStyle(fontSize: 30),
             ),
             subtitle: Text(
-              'Desired price of 1k',
+              'Desired price: \$${price}',
               style: TextStyle(fontSize: 20),
             )),
         Row(
@@ -37,14 +41,18 @@ class _HomeState extends State<Home> {
               },
             ),
             TextButton(
-              child: Text(
-                'DELETE',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                print("deleted");
-              },
-            ),
+                child: Text(
+                  'DELETE',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection("users")
+                      .doc(curUser.uid)
+                      .collection("flights")
+                      .doc(id)
+                      .delete();
+                }),
             SizedBox(width: 8),
           ],
         ),
@@ -53,6 +61,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
+    UserData curUser = Provider.of(context);
     return Scaffold(
       floatingActionButton: new FloatingActionButton(
           child: Icon(Icons.add),
@@ -63,7 +72,6 @@ class _HomeState extends State<Home> {
           }),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 30.0),
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(left: 20.0, right: 120.0),
@@ -77,8 +85,28 @@ class _HomeState extends State<Home> {
             ),
             Padding(
               padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: [bucketlistCard(), bucketlistCard()],
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(curUser.uid)
+                    .collection("flights")
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text("please make some list items yo");
+                  } else
+                    snapshot.data.docs.forEach((element) {
+                      print(element.data());
+                    });
+                  return ListView(
+                    shrinkWrap: true,
+                    children: snapshot.data.docs.map((document) {
+                      return bucketlistCard(document["from"], document["to"],
+                          document["price"], document.id);
+                      // return Text("BRUH");
+                    }).toList(),
+                  );
+                },
               ),
             ),
             SizedBox(height: 20.0),

@@ -1,11 +1,13 @@
 import 'package:bucketlist/constants/localData.dart';
 import 'package:bucketlist/models/user.dart';
+import 'package:bucketlist/screens/home_screen.dart';
 import 'package:bucketlist/services/auth.dart';
 import 'package:bucketlist/services/databse.dart';
 import 'package:bucketlist/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/constants/colors.dart' as ColorConstants;
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:provider/provider.dart';
 
 class BucketlistItemForm extends StatefulWidget {
   @override
@@ -18,19 +20,17 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
       priceController = TextEditingController();
 
   getListItems() async {
-    UserData user = await AuthService.getCurrentUser();
+    UserData user = Provider.of(context, listen: false);
     List<dynamic> ret = await DataBase().getListItems(user.uid);
     print("YUH" + ret[0]["to"]);
   }
 
-  createListItem() async {
-    UserData user = await AuthService.getCurrentUser();
-    // await DataBase().createListItem(user.uid);
-    getListItems();
+  createListItem(BuildContext context) async {
+    UserData user = Provider.of(context, listen: false);
+    await DataBase().createListItem(
+        user.uid, fromController.text, toController.text, priceController.text);
     print("created yo");
-    print(fromController.text);
-    print(toController.text);
-    print(priceController.text);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   }
 
   @override
@@ -110,7 +110,7 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
             padding: const EdgeInsets.all(45.0),
             child: InkWell(
               onTap: () {
-                createListItem();
+                createListItem(context);
               },
               child: ovalButton(
                   context: context,
