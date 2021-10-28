@@ -1,9 +1,11 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bucketlist/models/user.dart';
 import 'package:bucketlist/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/screens/LoginSignup/login.dart';
 import 'package:bucketlist/screens/root.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -39,7 +41,15 @@ class _MyAppState extends State<MyApp> {
             accentColor: Color(0xFFD8ECF1),
             scaffoldBackgroundColor: Color(0xFFF3F5F7),
           ),
-          home: Root()),
+          home: AnimatedSplashScreen(
+            splash: Text("yooo"),
+            nextScreen: Root(),
+            duration: 2000,
+            splashTransition: SplashTransition.fadeTransition,
+            pageTransitionType: PageTransitionType.fade,
+            animationDuration: Duration(seconds: 2),
+            backgroundColor: Colors.blue,
+          )),
     );
   }
 }

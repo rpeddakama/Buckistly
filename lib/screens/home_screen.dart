@@ -21,11 +21,11 @@ class _HomeState extends State<Home> {
         ListTile(
             leading: Icon(Icons.flight),
             title: Text(
-              'From ${from} to ${to}',
+              'From $from to $to',
               style: TextStyle(fontSize: 30),
             ),
             subtitle: Text(
-              'Desired price: \$${price}',
+              'Desired price: \$$price',
               style: TextStyle(fontSize: 20),
             )),
         Row(
@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Text("please make some list items yo");
+                    return CircularProgressIndicator();
                   } else
                     snapshot.data.docs.forEach((element) {
                       print(element.data());
