@@ -9,26 +9,26 @@ from email.mime.multipart import MIMEMultipart
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+cred = credentials.Certificate("firebasekey.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
 async def backend ():
-    cred = credentials.Certificate("firebasekey.json")
-    firebase_admin.initialize_app(cred)
-    db = firestore.client()
 
-    doc_ref = db.collection('users').stream()
-    for user in doc_ref:
-        # print(user.to_dict())
-        # print(user.id)
+    users = db.collection('users').stream()
+    for user in users:
         flights = db.collection('users').document(user.id).collection('flights').stream()
-
-        for f in flights:
-            From = f.get('from')
-            To = f.get('to')
-            print(str(From)+"-"+str(To))
-            # run(str)
-        # flights = user.collection('flights').stream()
+        for flight in flights:
+            f = flight.to_dict()
+            res = (f['from'].strip()+"-"+f['to'].strip())
+            print(res)
+            run(res)
+            time.sleep(20)
+        time.sleep(60)
 
 def run(cities):
     #Define parameters
+    
     start_date = datetime.datetime(2021,12,13)
     days_range = 2
     trip_length, min_length, max_length = 7, 6, 12
@@ -65,7 +65,8 @@ def run(cities):
 
         page ='https://www.ca.kayak.com/flights/' + cities + '/' + departing[i]+ '/' + returning[i] +'?sort=bestflight_a' 
         op = webdriver.ChromeOptions()
-        # op.add_argument('headless')
+        # op.add_argument('--headless')
+        # op.add_argument('window-size=1920x1080')
         driver = webdriver.Chrome('./chromedriver.exe', options=op)
         driver.get(page)  
         time.sleep(15)
@@ -112,4 +113,11 @@ def run(cities):
     driver.quit()
 
 if __name__ == "__main__":
-    asyncio.run(backend())
+    # asyncio.run(backend())
+    a=0
+    while True:
+        asyncio.run(backend())
+        time.sleep(600)
+        a += 1
+        if a == 5:
+            break

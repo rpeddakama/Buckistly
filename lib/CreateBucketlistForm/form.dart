@@ -28,7 +28,10 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
   createListItem(BuildContext context) async {
     UserData user = Provider.of(context, listen: false);
     await DataBase().createListItem(
-        user.uid, fromController.text, toController.text, priceController.text);
+        user.uid,
+        fromController.text.replaceAll(' ', '').toString(),
+        toController.text.replaceAll(' ', '').toString(),
+        priceController.text);
     print("created yo");
     Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   }

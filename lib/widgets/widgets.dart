@@ -154,7 +154,7 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = AssetImage("assets/images/stmarksbasilica.jpg");
+    final image = AssetImage("assets/images/logo.png");
 
     return ClipOval(
       child: Material(

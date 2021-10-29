@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bucketlist/models/user.dart';
 import 'package:bucketlist/services/auth.dart';
@@ -42,13 +44,16 @@ class _MyAppState extends State<MyApp> {
             scaffoldBackgroundColor: Color(0xFFF3F5F7),
           ),
           home: AnimatedSplashScreen(
-            splash: Text("yooo"),
+            splash: Image.asset(
+              'assets/images/logo.png',
+              scale: 0.5,
+            ),
             nextScreen: Root(),
             duration: 2000,
             splashTransition: SplashTransition.fadeTransition,
             pageTransitionType: PageTransitionType.fade,
             animationDuration: Duration(seconds: 2),
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.black,
           )),
     );
   }

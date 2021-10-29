@@ -15,7 +15,6 @@ class _ProfileState extends State<Profile> {
         children: [
           Container(
             //padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-            padding: EdgeInsets.fromLTRB(50, 50, 50, 30),
             child: Text("My Profile",
                 style: TextStyle(
                     color: Colors.black,
@@ -23,7 +22,7 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold)),
           ),
           ProfileWidget(
-            imagePath: "yo",
+            imagePath: "assets/images/logo.png",
             onClicked: () async {},
           ),
           SizedBox(height: 24),
