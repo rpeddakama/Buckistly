@@ -35,10 +35,10 @@ class AuthService {
           email: email, password: password);
 
       curUser = await DataBase().getUserInfo(res.user.uid);
-      return true;
+      return "success";
     } catch (e) {
       print(e);
-      return false;
+      return e.message;
     }
   }
 
@@ -53,10 +53,10 @@ class AuthService {
       _user.uid = res.user.uid;
       DataBase().createUser(_user);
 
-      return true;
+      return "success";
     } catch (e) {
       print(e);
-      return e;
+      return e.message;
     }
   }
 

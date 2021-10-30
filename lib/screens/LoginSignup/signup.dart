@@ -25,15 +25,14 @@ class _SignupState extends State<Signup> {
       });
       dynamic res = await AuthService.signUp(
           nameController.text, emailController.text, passwordController.text);
-      if (res == true) {
+      if (res == "success") {
         setState(() => _isLoading = false);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Root()));
       } else {
         print("alert yo");
-        AlertDialog(
-          content: Text(res.toString()),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(res)));
       }
     }
   }
@@ -70,7 +69,7 @@ class _SignupState extends State<Signup> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorConstants.loginSignupForm,
-                    hintStyle: TextStyle(color: Color(0xff6e6e6e)),
+                    hintStyle: TextStyle(color: Colors.white),
                     hintText: "Name",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25)),
@@ -88,7 +87,7 @@ class _SignupState extends State<Signup> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorConstants.loginSignupForm,
-                    hintStyle: TextStyle(color: Color(0xff6e6e6e)),
+                    hintStyle: TextStyle(color: Colors.white),
                     hintText: "Email",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25)),
@@ -107,7 +106,7 @@ class _SignupState extends State<Signup> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorConstants.loginSignupForm,
-                    hintStyle: TextStyle(color: Color(0xff6e6e6e)),
+                    hintStyle: TextStyle(color: Colors.white),
                     hintText: "Password",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25)),

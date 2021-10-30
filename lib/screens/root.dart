@@ -1,9 +1,11 @@
+import 'package:bucketlist/models/user.dart';
 import 'package:bucketlist/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bucketlist/screens/LoginSignup/login.dart';
 import 'package:bucketlist/screens/home_screen.dart';
 import 'package:bucketlist/screens/profile.dart';
 import 'package:bucketlist/screens/search_screen.dart';
+import 'package:provider/provider.dart';
 
 class Root extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class _RootState extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
+    UserData user = Provider.of(context);
+    if (user == null) return Login();
     return Scaffold(
       body: tabs[_currentTab],
       bottomNavigationBar: BottomNavigationBar(

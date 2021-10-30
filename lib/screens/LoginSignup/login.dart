@@ -30,11 +30,10 @@ class _LoginState extends State<Login> {
             context, MaterialPageRoute(builder: (context) => Root()));
       } else {
         print("alert yo");
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(
-              content: Text(res.toString()),
-              duration: Duration(seconds: 2),
-            ));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(res.toString()),
+          duration: Duration(seconds: 2),
+        ));
       }
     }
   }
@@ -64,12 +63,12 @@ class _LoginState extends State<Login> {
                   validator: (val) {
                     return val == "" ? 'Email' : null;
                   },
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                   controller: emailController,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorConstants.loginSignupForm,
-                    hintStyle: TextStyle(color: Color(0xff6e6e6e)),
+                    hintStyle: TextStyle(color: Colors.white),
                     hintText: "Email",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25)),
@@ -83,12 +82,12 @@ class _LoginState extends State<Login> {
                   validator: (val) {
                     return val == "" ? 'Password' : null;
                   },
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.white),
                   controller: passwordController,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: ColorConstants.loginSignupForm,
-                    hintStyle: TextStyle(color: Color(0xff6e6e6e)),
+                    hintStyle: TextStyle(color: Colors.white),
                     hintText: "Password",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25)),
