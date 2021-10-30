@@ -69,6 +69,8 @@ def run(cities):
         # op.add_argument('window-size=1920x1080')
         driver = webdriver.Chrome('./chromedriver.exe', options=op)
         driver.get(page)  
+        driver.get_screenshot_as_file("screenshot.png")
+
         time.sleep(15)
         soup = BeautifulSoup(driver.page_source, 'html.parser')
 
@@ -113,11 +115,11 @@ def run(cities):
     driver.quit()
 
 if __name__ == "__main__":
-    # asyncio.run(backend())
+    asyncio.run(backend())
     a=0
-    while True:
-        asyncio.run(backend())
-        time.sleep(600)
-        a += 1
-        if a == 5:
-            break
+    # while True:
+        # asyncio.run(backend())
+        # time.sleep(600)
+        # a += 1
+        # if a == 5:
+            # break
