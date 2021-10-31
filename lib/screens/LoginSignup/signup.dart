@@ -23,7 +23,7 @@ class _SignupState extends State<Signup> {
       setState(() {
         _isLoading = true;
       });
-      dynamic res = await AuthService.signUp(
+      String res = await AuthService.signUp(
           nameController.text, emailController.text, passwordController.text);
       if (res == "success") {
         setState(() => _isLoading = false);

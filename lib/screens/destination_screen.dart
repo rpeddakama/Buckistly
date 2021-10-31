@@ -1,6 +1,6 @@
+import 'package:bucketlist/models/destinationModel.dart';
 import 'package:flutter/material.dart';
-import 'package:bucketlist/models/activity_model.dart';
-import 'package:bucketlist/models/destination_model.dart';
+import 'package:bucketlist/models/activityModel.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DestinationScreen extends StatefulWidget {
@@ -62,22 +62,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                       iconSize: 30.0,
                       color: Colors.black,
                       onPressed: () => Navigator.pop(context),
-                    ),
-                    Row(
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.search),
-                          iconSize: 30.0,
-                          color: Colors.black,
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        IconButton(
-                          icon: Icon(FontAwesomeIcons.sortAmountDown),
-                          iconSize: 25.0,
-                          color: Colors.black,
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -173,12 +157,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                       style: TextStyle(
                                         fontSize: 22.0,
                                         fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      'per pax',
-                                      style: TextStyle(
-                                        color: Colors.grey,
                                       ),
                                     ),
                                   ],

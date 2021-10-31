@@ -33,6 +33,7 @@ class DataBase {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   Future<String> createListItem(

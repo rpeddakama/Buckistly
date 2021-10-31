@@ -29,23 +29,25 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
     UserData user = Provider.of(context, listen: false);
     await DataBase().createListItem(
         user.uid,
-        fromController.text.replaceAll(' ', '').toString(),
-        toController.text.replaceAll(' ', '').toString(),
+        fromController.text,
+        toController.text,
+        // fromController.text.substring(fromController.text.length - 3),
+        // toController.text.substring(toController.text.length - 3),
         priceController.text);
     print("created yo");
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorConstants.backgroundColor,
+        backgroundColor: Colors.white,
         title: Text("Create"),
-        actions: <Widget>[IconButton(icon: Icon(Icons.save), onPressed: () {})],
       ),
       body: Column(
         children: <Widget>[
+          SizedBox(height: 24),
           // Padding(
           //   padding: const EdgeInsets.all(8.0),
           //   child: Title(
@@ -112,14 +114,14 @@ class _BucketlistItemFormState extends State<BucketlistItemForm> {
           Padding(
             padding: const EdgeInsets.all(45.0),
             child: InkWell(
-              onTap: () {
-                createListItem(context);
-              },
-              child: ovalButton(
-                  context: context,
-                  label: "Create",
-                  col: ColorConstants.backgroundColor),
-            ),
+                onTap: () {
+                  createListItem(context);
+                },
+                child: ovalButton(
+                    context: context,
+                    label: "Create",
+                    // col: ColorConstants.loginSignupForm),
+                    col: Color(0xff6596eb))),
           ),
         ],
       ),

@@ -18,18 +18,24 @@ class _LoginState extends State<Login> {
   bool _isLoading = false;
 
   signIn() async {
-    if (_formKey.currentState.validate()) {
+    if (mounted)
       setState(() {
         _isLoading = true;
       });
-      dynamic res = await AuthService.signIn(
+    if (_formKey.currentState.validate()) {
+      String res = await AuthService.signIn(
           emailController.text, passwordController.text);
-      if (res == true) {
-        setState(() => _isLoading = false);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Root()));
+      if (res == "success") {
+        print("login success");
+        if (mounted)
+          setState(() {
+            _isLoading = false;
+          });
       } else {
-        print("alert yo");
+        if (mounted)
+          setState(() {
+            _isLoading = false;
+          });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(res.toString()),
           duration: Duration(seconds: 2),
@@ -99,7 +105,7 @@ class _LoginState extends State<Login> {
               ),
               InkWell(
                 onTap: () {
-                  signIn();
+                  if (!_isLoading) signIn();
                   print("bruh");
                 },
                 child: ovalButton(
