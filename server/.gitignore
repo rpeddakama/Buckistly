@@ -1,3 +1,4 @@
 node_modules
 chromedriver.exe
 firebasekey.json
+env.txt

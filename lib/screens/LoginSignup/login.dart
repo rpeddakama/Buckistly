@@ -47,6 +47,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: ColorConstants.backgroundColor,
       body: Form(
         key: _formKey,
@@ -62,6 +63,27 @@ class _LoginState extends State<Login> {
                         color: Colors.white,
                         fontSize: 40,
                         fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                  // color: Colors.white,
+                  // border:
+                  // Border.all(width: 0.0, color: const Color(0xFFFFFFFF)),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/logo.png'),
+                      fit: BoxFit.fill),
+                ),
+              ),
+              Text("Welcome back!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  )),
+              SizedBox(
+                height: 20,
               ),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 4),

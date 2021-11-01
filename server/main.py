@@ -86,8 +86,10 @@ def run(cities):
             #Email info
             config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
 
-            sender = ''
-            password = ''
+            with open('env.txt') as f:
+                lines = f.readlines()
+            sender = f[0]
+            password = f[1]
             port = 465
             receive = 'rishipeddakama@gmail.com' 
             
