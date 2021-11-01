@@ -5,6 +5,7 @@ import pandas as pd
 import datetime, re, time, itertools, smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from dotenv import load_dotenv
 
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -22,7 +23,7 @@ async def backend ():
             f = flight.to_dict()
             res = (f['from'].strip()+"-"+f['to'].strip())
             print(res)
-            run(res)
+            run("SAN-HNL")
             time.sleep(20)
         time.sleep(60)
 
@@ -83,18 +84,20 @@ def run(cities):
             
             # if data[i]<price_goal:
             #Email info
-            sender = '999dragonmaster999@gmail.com'
-            password = '999dragonmast3rEEE'
+            config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
+
+            sender = ''
+            password = ''
             port = 465
-            receive = sender
+            receive = 'rishipeddakama@gmail.com' 
             
             #Email content
             msg = MIMEMultipart()
             msg['From'] = sender
             msg['To'] = receive
-            msg['Subject'] = 'Great deal on tickets found'
+            msg['Subject'] = 'Great deal on tickets Rishi!'
 
-            body = 'Go here to see the great deal:' + re.sub('https://www.', '', page)
+            body = 'Hello Rishi!\nWe would like to remind you that our systems found a great deal on tickets from San Diego to Honolulu!\nMaybe now is the time!!\n' + re.sub('https://www.', '', page)
             msg.attach(MIMEText(body,'plain'))
             text = msg.as_string()
 
