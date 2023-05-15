@@ -2,9 +2,6 @@
 
 ## 🎈 About The Project
 
-An open-source online judge for algorithmic coding problems.
-Check it out on google playstore [here](https://play.google.com/store/apps/details?id=com.rpeddakama.buckistly)
-
 ### Built With
 
 - Flutter 
